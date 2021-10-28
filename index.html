@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Panel Movement</title>
+</head>
+<body>
+    <div class="panels">
+        <div class="panel panel1">
+            <p>Let's</p>
+            <p>Play</p>
+            <p>A Lot</p>
+        </div>
+        <div class="panel panel2">
+            <p>Spend</p>
+            <p>Time</p>
+            <p>with friends</p>
+        </div>
+        <div class="panel panel3">
+            <p>Bring</p>
+            <p>Joy</p>
+            <p>with you</p>
+        </div>
+        <div class="panel panel4">
+            <p>come</p>
+            <p>Home</p>
+            <p>to your family</p>
+        </div>
+        <div class="panel panel5">
+            <p>Let's</p>
+            <p>Enjoy</p>
+            <p>nature</p>
+        </div>
+    </div>
+</body>
+</html>
+
+<style>
+    html{
+        width: 100%;
+        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        font-size: 16px;
+        color: #f8ffe5;
+        font-weight: 400;
+    }
+
+    body{
+        margin: 0;
+    }
+    .panels{
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .panel{
+        width: 100%;
+        min-height: 100vh;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        flex: 1;
+        transition:
+         font-size 0.7s cubic-bezier(0.42, 0, 0.71, 1.38),
+         flex 0.7s cubic-bezier(0.42, 0, 0.71, 1.38), 
+         background-color 0.2s;       
+    }
+
+    .panel >* {
+        margin: 0;
+        display: flex;
+        flex: 1 0 auto;
+        justify-content: center;
+        align-items: center;
+        transition: transform 0.5s;
+    }
+
+    .panel p:nth-child(2) {
+        font-size: 3em;
+    }
+
+
+    .panel1{ background-color: #1b9aaa;}
+    .panel2{ background-color: #06d6a0;}
+    .panel3{ 
+        background-color: #f7fff7;
+        color: black;
+    }
+    .panel4{ background-color: #ef476f;}
+    .panel5{ background-color: #ffc43d;}
+
+
+    .panel.open{
+        font-size: 1.8em;
+        flex: 5;
+    }
+
+    .panel >*:first-child{transform: translateY(-100%);}
+    .panel.open-active >*:first-child{transform: translateY(0);}
+    .panel >*:last-child{transform: translateY(100%);}
+    .panel.open-active >*:last-child{transform: translateY(0);}
+</style>
+
+<script>
+    const panels =document.querySelectorAll(".panel");
+
+    function toggleOpen(e){
+        console.log(this)
+        this.classList.toggle("open");
+    }
+
+    function wordMoveIn(e){
+        if(e.propertyName.includes("flex")){
+           this.classList.toggle("open-active"); 
+        }
+    }
+
+    panels.forEach(panel => panel.addEventListener("click", toggleOpen));
+    panels.forEach(panel =>panel.addEventListener("transitionend", wordMoveIn))
+</script>
